@@ -2,6 +2,7 @@
     x:Class="Gao.MvvmToolkit.Demo.Views.LoginView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:comm="clr-namespace:Gao.MvvmToolkit.Demo.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -79,7 +80,8 @@
                     FontWeight="Medium"
                     Foreground="Black"
                     Style="{x:Null}"
-                    TabIndex="0">
+                    TabIndex="0"
+                    Text="{Binding Tenant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.Background>
                         <ImageBrush
                             AlignmentX="Left"
@@ -107,7 +109,8 @@
                     FontWeight="Medium"
                     Foreground="Black"
                     Style="{x:Null}"
-                    TabIndex="1">
+                    TabIndex="1"
+                    Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.Background>
                         <ImageBrush
                             AlignmentX="Left"
@@ -127,6 +130,8 @@
                     Margin="0,4,0,0"
                     Padding="20,0,0,0"
                     VerticalAlignment="Center"
+                    comm:PasswordBoxHelper.Attach="True"
+                    comm:PasswordBoxHelper.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     BorderBrush="DarkGray"
                     BorderThickness="0,0,0,1"
                     CaretBrush="LightGray"
@@ -146,6 +151,7 @@
                 <CheckBox
                     Height="28"
                     Margin="0,16,0,0"
+                    Checked="{Binding IsRemember}"
                     Content="记住用户名和密码"
                     FontFamily="微软雅黑"
                     FontSize="12"
@@ -157,6 +163,7 @@
                     Height="30"
                     Margin="0,8,0,0"
                     HorizontalAlignment="Stretch"
+                    Command="{Binding LoginCommand}"
                     Content="登  录"
                     Style="{StaticResource ButtonPrimary}"
                     TabIndex="4" />
@@ -167,7 +174,7 @@
                     FontFamily="微软雅黑"
                     FontSize="14"
                     Foreground="DarkRed"
-                    Text="错误信息" />
+                    Text="{Binding ErrMessage}" />
             </StackPanel>
         </Border>
 
